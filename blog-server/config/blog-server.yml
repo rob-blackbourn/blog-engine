@@ -1,0 +1,30 @@
+http:
+  host: localhost
+  port: 8080
+
+mongo:
+  host: localhost
+  port: 27017
+  username: root
+  password: password
+  auth_source: admin
+  database: blog
+
+authentication:
+  rounds: 12
+  issuer: www.example.com
+  secret: mysecret
+
+authorization:
+  default_roles:
+    - public:read
+  admin_roles:
+    - admin
+    - user:read
+    - user:write
+    - blog:read
+    - blog:write
+    - post:read
+    - post:write
+    - comment:read
+    - comment:write

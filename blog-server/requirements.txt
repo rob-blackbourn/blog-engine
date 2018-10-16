@@ -1,0 +1,16 @@
+aiodns==1.1.1
+aiohttp==3.4.4
+aiohttp-cors==0.7.0
+aiohttp-route-middleware==0.0.2
+bcrypt==3.1.4
+cachetools==2.1.0
+cchardet==2.1.4
+easydict==1.8
+GraphQL-core-next==1.0.1
+graphql-ws-next==1.0.0
+motor==2.0.0
+motorodm==0.0.9
+PyJWT==1.6.4
+PyYAML==3.13
+stringcase==1.2.0
+aiodataloader==0.1.2
