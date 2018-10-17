@@ -1,10 +1,10 @@
 http:
   host: localhost
-  port: 8080
+  port: 9009
 
 mongo:
   host: localhost
-  port: 27017
+  port: 30003
   username: root
   password: password
   auth_source: admin

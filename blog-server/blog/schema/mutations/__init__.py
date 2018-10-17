@@ -3,7 +3,7 @@ from graphql import (
 )
 
 RootMutationType = GraphQLObjectType(
-    name='RootMutationType',
+    name='Mutations',
     fields=lambda: {
         'registerUser': RegisterUserMutation,
         'authenticate': AuthenticateMutation,

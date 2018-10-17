@@ -6,7 +6,7 @@ services:
     image: mongo:4.0.2-xenial
     restart: always
     ports:
-      - 27017:27017
+      - 30003:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password

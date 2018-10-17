@@ -3,7 +3,7 @@ from graphql import (
 )
 
 RootQueryType = GraphQLObjectType(
-    name='RootQueryType',
+    name='Queries',
     fields=lambda: {
         'userById': UserByIdQuery,
         'userByPrimaryEmail': UserByPrimaryEmailQuery,

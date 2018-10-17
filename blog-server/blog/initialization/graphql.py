@@ -18,6 +18,7 @@ from ..controllers import GraphQLController
 
 async def startup(app):
     authentication = AuthenticationMiddleware(whitelist=[
+        '__schema',
         'registerUser',
         'authenticate'
     ])

@@ -16,7 +16,7 @@ UserType = GraphQLObjectType(
         'id': GraphQLField(GraphQLID),
         'primaryEmail': GraphQLField(GraphQLNonNull(GraphQLString)),
         'password': GraphQLField(GraphQLNonNull(GraphQLString)),
-        'secondaryEmails': GraphQLField(GraphQLString),
+        'secondaryEmails': GraphQLField(GraphQLList(GraphQLString)),
         'givenNames': GraphQLField(GraphQLList(GraphQLString)),
         'familyName': GraphQLField(GraphQLString),
         'nickname': GraphQLField(GraphQLString),

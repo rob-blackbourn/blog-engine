@@ -9,7 +9,7 @@ easydict==1.8
 GraphQL-core-next==1.0.1
 graphql-ws-next==1.0.0
 motor==2.0.0
-motorodm==0.0.9
+motorodm==0.0.10
 PyJWT==1.6.4
 PyYAML==3.13
 stringcase==1.2.0
