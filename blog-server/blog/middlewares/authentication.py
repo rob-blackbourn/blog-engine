@@ -1,4 +1,4 @@
-from easydict import EasyDict as edict
+from inspect import isawaitable
 import jwt
 import logging
 from cachetools import TTLCache
@@ -17,12 +17,14 @@ class AuthenticationMiddleware(object):
         self.whitelist = whitelist
         self._cache = TTLCache(maxsize=maxsize, ttl=ttl)
 
+
     def is_whitelisted(self, responsePath):
         for name in self.whitelist:
             if responsePath.key == name:
                 logger.debug(f"Path is whitelisted: {responsePath}")
                 return True
         return False
+
 
     async def _get_user_and_permission(self, db, user_id):
         user, permission = self._cache.get(user_id, (None, None))
@@ -34,6 +36,7 @@ class AuthenticationMiddleware(object):
             permission = await Permission.qs(db).find_one(user={'$eq': user}) if user else None
             self._cache[user_id] = (user, permission)
         return user, permission
+
 
     async def _authenticate(self, context):
 
@@ -48,6 +51,7 @@ class AuthenticationMiddleware(object):
         user_id = payload['sub']
 
         return await self._get_user_and_permission(context.db, user_id)
+
 
     async def resolve(self, next, root, info, *args, **kwargs):
         logger.debug(f"Authenticating {info.path}")
@@ -64,5 +68,5 @@ class AuthenticationMiddleware(object):
         except:
             logger.debug(f'Failed to authenticate {info.path}')
         finally:
-            response = await next(root, info, *args, **kwargs)
-            return response
+            response = next(root, info, *args, **kwargs)
+            return await response if isawaitable(response) else response

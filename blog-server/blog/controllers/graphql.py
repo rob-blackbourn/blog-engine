@@ -70,6 +70,8 @@ class GraphQLController:
 
         query_document = await self.get_query_document(request, request.content_type)
 
+        print(query_document['query'])
+
         result = await graphql(
             self.schema,
             source=query_document['query'],
