@@ -53,6 +53,64 @@ mutation RegisterUser($primaryEmail: String!, $password: String!, $secondaryEmai
     })
 }
 
+export function updateProfile(
+  originalPrimaryEmail,
+  primaryEmail,
+  secondaryEmails,
+  givenNames,
+  familyName,
+  nickname,
+  onError,
+  onSuccess
+) {
+  const body = {
+    query: `
+mutation UpdateUser($originalPrimaryEmail: String!, $primaryEmail: String!, $secondaryEmails: [String], $givenNames: [String], $familyName: String, $nickname: String) {
+  updateUser(originalPrimaryEmail: $originalPrimaryEmail, primaryEmail: $primaryEmail, secondaryEmails: $secondaryEmails, givenNames: $givenNames, familyName: $familyName, nickname: $nickname) {
+    primaryEmail
+    secondaryEmails
+    givenNames
+    familyName
+    nickname
+    roles
+  }
+}`,
+    variables: {
+      originalPrimaryEmail,
+      primaryEmail,
+      secondaryEmails: secondaryEmails
+        .map(x => x.trim())
+        .filter(x => x.length > 0),
+      givenNames: givenNames.map(x => x.trim()).filter(x => x.length > 0),
+      familyName,
+      nickname
+    }
+  }
+
+  const text = JSON.stringify(body)
+
+  fetch(CONFIG.url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: text
+  })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response)
+      if (response.errors) {
+        onError(response.errors)
+      } else {
+        onSuccess(response.data.updateUser)
+      }
+    })
+    .catch(error => {
+      onError(error)
+    })
+}
+
 export function login(email, password, onError, onSuccess) {
   const query = `
   mutation Authenticate($email: String!, $password: String!) {

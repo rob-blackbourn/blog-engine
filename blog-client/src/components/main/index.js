@@ -132,6 +132,14 @@ class Dashboard extends React.Component {
     this.setState({ token, currentUser, contentMode })
   }
 
+  handleProfileChanged = currentUser => {
+    this.setState({ currentUser })
+  }
+
+  handleProfileRequested = () => {
+    this.setState({ userMenuAnchorEl: null, contentMode: "profile" })
+  }
+
   render() {
     const { classes } = this.props
     const {
@@ -211,16 +219,10 @@ class Dashboard extends React.Component {
                   Login
                 </MenuItem>
                 <MenuItem
-                  onClick={this.closeUsermenu}
+                  onClick={this.handleProfileRequested}
                   disabled={!isAuthenticated}
                 >
                   Profile
-                </MenuItem>
-                <MenuItem
-                  onClick={this.closeUsermenu}
-                  disabled={!isAuthenticated}
-                >
-                  My account
                 </MenuItem>
               </Menu>
             </div>
@@ -251,6 +253,7 @@ class Dashboard extends React.Component {
           <Content
             contentMode={contentMode}
             onAuthenticated={this.handleAuthentication}
+            onProfileChanged={this.handleProfileChanged}
             token={token}
             currentUser={currentUser}
           />
