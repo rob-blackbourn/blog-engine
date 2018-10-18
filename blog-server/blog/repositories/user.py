@@ -88,3 +88,29 @@ class UserRepository(Repository):
 
         user = await context.data_loaders.load(UserRepository.GET_USER_BY_PRIMARY_EMAIL, primary_email)
         return user
+
+
+    async def update_profile(
+            self,
+            context,
+            original_primary_email,
+            primary_email,
+            secondary_emails,
+            given_names,
+            family_name,
+            nickname
+    ):
+        user = await context.data_loaders.load(UserRepository.GET_USER_BY_PRIMARY_EMAIL, original_primary_email)
+
+        if not self.is_owner(context, user):
+            raise Exception('unauthorized')
+
+        user.primary_email = primary_email
+        user.secondary_emails = secondary_emails
+        user.given_names = given_names
+        user.family_name = family_name
+        user.nickname = nickname
+
+        await user.qs(context.db).save()
+
+        return dict_to_camelcase_dict(user.to_dict(), edict)

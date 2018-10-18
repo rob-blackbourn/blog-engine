@@ -1,3 +1,6 @@
+from ..utils.casing import dict_to_snakecase_dict
+
+
 async def get_all_users(root, info, *args, **kwargs):
     return await info.context.repositoreis.user.get_all_users(
         info.context
@@ -28,4 +31,11 @@ async def get_user_by_primary_email(root, info, *args, **kwargs):
     return await info.context.repositories.user.get_user_by_primary_email(
         info.context,
         kwargs['email']
+    )
+
+
+async def update_profile(root, info, *args, **kwargs):
+    return await info.context.repositories.user.update_profile(
+        info.context,
+        **dict_to_snakecase_dict(kwargs)
     )

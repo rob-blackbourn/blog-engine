@@ -1,4 +1,4 @@
-from ..utils.casing import dict_to_snakecase_dict, dict_to_camelcase_dict
+from ..utils.casing import dict_to_snakecase_dict
 
 
 async def register_user(root, info, *args, **kwargs):
